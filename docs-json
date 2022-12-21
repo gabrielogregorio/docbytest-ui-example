@@ -1,0 +1,717 @@
+{
+  "suites": [
+    {
+      "paths": {
+        "/auth": {
+          "post": [
+            {
+              "title": "✅ realiza login e obtém um token jwt",
+              "description": "",
+              "method": "post",
+              "path": "/auth",
+              "sendContent": {
+                "username": "teste.mariana",
+                "password": "teste.password"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+                  "id": "62a69b0137322c68b8c6b111"
+                }
+              }
+            },
+            {
+              "title": "🚫 impede o login de usuário não cadastrado",
+              "description": "",
+              "method": "post",
+              "path": "/auth",
+              "sendContent": {
+                "username": "test",
+                "password": "test"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 404,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 impede o login com senha inválida",
+              "description": "",
+              "method": "post",
+              "path": "/auth",
+              "sendContent": {
+                "username": "teste.mariana",
+                "password": "123"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            }
+          ]
+        },
+        "/user": {
+          "delete": [
+            {
+              "title": "⚠️ deletar a própria conta",
+              "description": "",
+              "method": "delete",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            }
+          ]
+        }
+      },
+      "description": "O cadastro de usuário precisa ser solicitada aos desenvolvedores",
+      "title": "🔐 Autenticação",
+      "order": 1
+    },
+    {
+      "paths": {
+        "/user": {
+          "post": [
+            {
+              "title": "✅ Cadastrar um usuário",
+              "description": "Cadastra um usuário que pode fazer e gerenciar posts no blog",
+              "method": "post",
+              "path": "/user",
+              "sendContent": {
+                "code": "código enviado pelos devs",
+                "username": "lucia santos teste",
+                "password": "1234abc"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "username": "lucia santos teste"
+                }
+              }
+            },
+            {
+              "title": "🚫 Impede o cadastro de um usuário que já existe",
+              "description": "",
+              "method": "post",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 409,
+                "body": {
+                  "error": "Username is already registered"
+                }
+              }
+            }
+          ],
+          "get": [
+            {
+              "title": "✅ Obter a si mesmo",
+              "description": "",
+              "method": "get",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "username": "lucia santos teste"
+                }
+              }
+            },
+            {
+              "title": "🚫 impede de obter usuário sem token",
+              "description": "",
+              "method": "get",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            }
+          ],
+          "put": [
+            {
+              "title": "✅ atualiza dados de si mesmo",
+              "description": "Isso é útil para alterar dados pessoais, etc.\n\n    > red # Implementação pouco usada\n    > Atualmente essa funcionalidade não é usada no blog dicas de valorant",
+              "method": "put",
+              "path": "/user",
+              "sendContent": {
+                "username": "julia",
+                "password": "abc987"
+              },
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "username": "lucia santos teste"
+                }
+              }
+            },
+            {
+              "title": "🚫 impede edição de usuário sem token",
+              "description": "",
+              "method": "put",
+              "path": "/user",
+              "sendContent": {
+                "username": "testeQualquerCoisa",
+                "password": "usuarioNotExists"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            }
+          ],
+          "delete": [
+            {
+              "title": "🚫 impede usuário sem token de deletar",
+              "description": "",
+              "method": "delete",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            },
+            {
+              "title": "⚠️ deletar a si mesmo",
+              "description": "Isso remove a conta do próprio usuário",
+              "method": "delete",
+              "path": "/user",
+              "sendContent": "",
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            }
+          ]
+        }
+      },
+      "description": "O cadastro de usuário precisa ser solicitada aos desenvolvedores",
+      "title": "👤 Usuários",
+      "order": 2
+    },
+    {
+      "paths": {
+        "/generate_code": {
+          "post": [
+            {
+              "title": "✅ Criar uma chave",
+              "description": "",
+              "method": "post",
+              "path": "/generate_code",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impede a geração com uma chave inválida",
+              "description": "",
+              "method": "post",
+              "path": "/generate_code",
+              "sendContent": {
+                "GENERATOR_CODE": "Qualquer chave"
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 404,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Deve impedir o registro deu uma nova chave após duas tentativas com erro",
+              "description": "",
+              "method": "post",
+              "path": "/generate_code",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 405,
+                "body": {}
+              }
+            }
+          ]
+        }
+      },
+      "description": "",
+      "title": "🔑 Geração de chaves",
+      "order": 999
+    },
+    {
+      "paths": {
+        "/post": {
+          "post": [
+            {
+              "title": "✅ Cria um post",
+              "description": "",
+              "method": "post",
+              "path": "/post",
+              "sendContent": "",
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Deve impedir um cadastro de um post por alguém não cadastrado",
+              "description": "",
+              "method": "post",
+              "path": "/post",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impede o cadastro sem informar os dados corretos",
+              "description": "",
+              "method": "post",
+              "path": "/post",
+              "sendContent": {},
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 400,
+                "body": {
+                  "error": "Some value is invalid"
+                }
+              }
+            }
+          ]
+        },
+        "/post/${postId}": {
+          "put": [
+            {
+              "title": "✅Edita um post",
+              "description": "",
+              "method": "put",
+              "path": "/post/${postId}",
+              "sendContent": "",
+              "parameters": [
+                {
+                  "name": "postId",
+                  "variable": "postId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "213"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            }
+          ],
+          "delete": [
+            {
+              "title": "⚠️ Deleta um post",
+              "description": "",
+              "method": "delete",
+              "path": "/post/${postId}",
+              "sendContent": "",
+              "parameters": [
+                {
+                  "name": "postId",
+                  "variable": "postId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "213"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            }
+          ]
+        },
+        "/posts": {
+          "get": [
+            {
+              "title": "✅ Retorna todos posts",
+              "description": "",
+              "method": "get",
+              "path": "/posts",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            }
+          ]
+        }
+      },
+      "description": "",
+      "title": "📔 Posts",
+      "order": 999
+    },
+    {
+      "paths": {
+        "/suggestion": {
+          "post": [
+            {
+              "title": "✅ Enviar uma sugestão",
+              "description": "",
+              "method": "post",
+              "path": "/suggestion",
+              "sendContent": {
+                "post_id": "6158689924fd4f9e1c587851",
+                "email": "gab@gab.com",
+                "description": "Eu acho que seria..."
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impede o registro de uma sugestão sem conteúdo correto",
+              "description": "",
+              "method": "post",
+              "path": "/suggestion",
+              "sendContent": {
+                "post_id": "12345123145",
+                "email": "gab@gab.com",
+                "description": ""
+              },
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 400,
+                "body": {
+                  "erro": "Parametros inválidos ou faltantes"
+                }
+              }
+            }
+          ]
+        },
+        "/suggestions": {
+          "get": [
+            {
+              "title": "✅ Retorna sugestões",
+              "description": "",
+              "method": "get",
+              "path": "/suggestions",
+              "sendContent": "",
+              "parameters": [],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": [
+                  {
+                    "body": {
+                      "length - 1]": {
+                        "description": ""
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "title": "🚫 Impede que um usuários não autorizado vejam as sugestões",
+              "description": "",
+              "method": "get",
+              "path": "/suggestions",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            }
+          ]
+        },
+        "/suggestion/${suggestionId}": {
+          "put": [
+            {
+              "title": "✅ Altera o status para aceito",
+              "description": "",
+              "method": "put",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": {
+                "status": "accepted"
+              },
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "✅ Altera o status para rejeitado",
+              "description": "",
+              "method": "put",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": {
+                "status": "rejected"
+              },
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impedir atualização de status sem o token",
+              "description": "",
+              "method": "put",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": {
+                "status": "accepted"
+              },
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impede alteração por um status inexistente",
+              "description": "",
+              "method": "put",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": {
+                "status": "any"
+              },
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 400,
+                "body": {
+                  "error": "Status para a sugestão inválido!"
+                }
+              }
+            }
+          ],
+          "delete": [
+            {
+              "title": "⚠️ Deleta uma sugestão",
+              "description": "",
+              "method": "delete",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": "",
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5c"
+              },
+              "response": {
+                "statusCode": 200,
+                "body": {}
+              }
+            },
+            {
+              "title": "🚫 Impede a exclusão de uma sugestão por um desconhecido",
+              "description": "",
+              "method": "delete",
+              "path": "/suggestion/${suggestionId}",
+              "sendContent": "",
+              "parameters": [
+                {
+                  "name": "suggestionId",
+                  "variable": "suggestionId",
+                  "in": "param",
+                  "type": "string",
+                  "example": "629cfd7adc5df3a582ff57c6"
+                }
+              ],
+              "headers": "",
+              "response": {
+                "statusCode": 403,
+                "body": {}
+              }
+            }
+          ]
+        }
+      },
+      "description": "",
+      "title": "🙋 Sugestões",
+      "order": 999
+    },
+    {
+      "paths": {
+        "/views": {
+          "get": [
+            {
+              "title": "✅ Retorna quantidade de visualizações",
+              "description": "",
+              "method": "get",
+              "path": "/views",
+              "sendContent": "",
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "countAll": 33,
+                  "countIps": 1
+                }
+              }
+            }
+          ],
+          "post": [
+            {
+              "title": "✅ Cria nova visualização",
+              "description": "Essa rota registra a quantidade de visualizações que o site teve, não substituindo claro ferramentas de analytics",
+              "method": "post",
+              "path": "/views",
+              "sendContent": {},
+              "parameters": [],
+              "headers": "",
+              "response": {
+                "statusCode": 200,
+                "body": {
+                  "msg": "ok"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "description": "",
+      "title": "👀 Visualizações",
+      "order": 999
+    }
+  ],
+  "docs": [
+    {
+      "title": "🚀 GETTING STARTED",
+      "order": 1,
+      "docs": [
+        {
+          "title": "🥷 API Valorant tips",
+          "order": 1,
+          "text": "# 🥷 API Valorant tips\n\nEstá **documentação contém toda a parte** técnica relacionada a API do blog [dicas de valorant](https://valorant-tips.vercel.app/), sendo o primeiro projeto que usa a biblioteca doctbytest!\n\nEstá documentação se destina a testarmos a biblioteca docbytest e não damos suporte e nem apoiamos o uso da api do Valorant tips, atualmente ela é publica, mas é alterada de acordo com as necessidades do blog, sem aviso prévio e sem suporte ok!\n\n> # 💡 O que é o docbytest\n> O [docbytest](https://github.com/gabrielogregorio/docbytest) é o projeto usado para gerar está documentação a partir de testes, basicamente você escreve um teste e 'magicamente' surge uma documentação de acordo com padrões estabelecidos pela docbytest.\n\n-------\n\n## Código aberto\n\nVocê pode colaborar com o [frontend](https://github.com/gabrielogregorio/valorant-tips) ou com o [backend](https://github.com/gabrielogregorio/valorant-tips-api) do dicas de Valorant, a qual serve essa documentação, mas já aviso que esse projeto possui poucos ajustes ao longo do tempo.\n\n\n## A quem se destina?\nEssa documentação atende vários publicos, **porém**, os publicos abaixo são os nossos principais\n\n* Desenvolvedores de software que **queira** brincar com a API ou o docbytest\n* Contribuidores do dicas de valorant\n\n## Erros\n\nNossa API usa os códigos tradicionais das API's, porém ainda temos um problema com os códigos 403 e 401, hoje usamos o 403 como 401, vamos arrumar futuramente.\nErros na faixa de 200 indicam algum tipo de sucesso, na faixa de 400 algum problema com parâmetros passados e 500 algo no servidor.\n\nConfira uma tabela com todos os erros usados atualmente no projeto.\n\n| statusCode | description |\n|---------|----------|\n| 200 | Tudo ocorreu com sucesso |\n| 204 | Retorno sem conteúdo |\n| 400 | Você esqueceu de passar algum parâmetro na requisição |\n| 401 | Você precisa de um token de autenticação, ou o seu token expirou |\n| 403 | Você não tem permissão para acessar essa região. |\n| 404 | Nenhum arquivo encontrado |\n| 405 | Método Não Permitido |\n| 409 | Item já existe |\n| 500 | Erro no servidor |\n\n\n\n\n"
+        },
+        {
+          "title": "🔓 Autenticação",
+          "order": 2,
+          "text": "# 🔓 Autenticação\n\nAlguns endpoints precisam de autenticação, você pode conseguir uma chave de acesso informando um login e senha válidos.\n\n## Exemplo para obter o token\n\nVocê pode obter um token de autorização fazendo uma autorização get ao seguinte endereço\n\n```bash\ncurl -X POST \\\n  -H \"Content-type: application/json\" \\\n  -d '{\"username\":\"your username\",\"password\":\"your password\"}' \\\n    'https://backend-valorant.herokuapp.com/auth'\n```\n\nUm token JWT será retornado, com o id do usuário, use-os para conseguir acesso a endpoints que privados\n```json\n{\n  \"token\":\"token jwt\",\n  \"id\":\"1713478H2\"\n}\n```\n> red # 🚧 Atenção!\n> Você precisa de entrar em contado com os [desenvolvedores](https://github.com/gabrielogregorio) informando que deseja ter **acesso blog**, e use com saberia esse acesso!\n\n\n"
+        }
+      ]
+    },
+    {
+      "title": "💻 DICAS",
+      "order": 2,
+      "docs": [
+        {
+          "title": "📖 Referências",
+          "order": 1,
+          "text": "# 📖 Referências\n\nSeguém algumas referências\n\n| Assunto | Descrição |\n|--------|-----------|\n| Configuração do mongodb atlas | [mongodb atlas](https://github.com/gabrielogregorio/doc-mongodb-atlas) |\n| Configuração da API dicas de Valorant | [Valorant Tips Api](https://github.com/gabrielogregorio/valorant-tips-api/blob/main/README.md) |\n| Configuração do frontend do dicas de Valorant | [ Valorant Tips Frontend](https://github.com/gabrielogregorio/valorant-tips/blob/main/README.md) |\n\n![exemplo do dicas de valorant](/docs/project.png)\n\n"
+        }
+      ]
+    }
+  ]
+}

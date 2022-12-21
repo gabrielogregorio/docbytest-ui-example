@@ -1,0 +1,22 @@
+{
+  "name": "docbytest-ui-example",
+  "version": "1.0.0",
+  "homepage": "/docs",
+  "private": false,
+  "main": "build/index.js",
+  "dependencies": {
+    "docbytest-ui": "^2.0.0"
+  },
+  "scripts": {
+    "delete-build":"rm -rf ./build",
+    "prepare-gh-build":"mkdir build && mkdir build/docs && mkdir build/public",
+    "move-build": "cp -rf ./node_modules/docbytest-ui/build/* ./build && cp -rf ./node_modules/docbytest-ui/public/* ./build/public",
+    "prepare-items-build":"mv ./build/public ./build/docs/public && mv ./build/static ./build/docs/static && mv ./build/index.html ./build/docs/index.html",
+    "move-data":"cp docs-json ./build",
+    "build":"yarn delete-build && yarn prepare-gh-build && yarn move-build && yarn prepare-items-build && yarn move-data",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
