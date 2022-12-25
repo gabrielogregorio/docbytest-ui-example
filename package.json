@@ -13,7 +13,7 @@
     "move-build": "cp -rf ./node_modules/docbytest-ui/build/* ./build && cp -rf ./node_modules/docbytest-ui/public/* ./build/public",
     "prepare-items-build":"mv ./build/public ./build/docs/public && mv ./build/assets ./build/docs/assets && mv ./build/index.html ./build/docs/index.html",
     "move-data":"cp docs-json ./build",
-    "build":"yarn delete-build && yarn prepare-gh-build && yarn move-build && yarn prepare-items-build && yarn move-data",
+    "build":"yarn delete-build && yarn prepare-gh-build && yarn move-build && yarn prepare-items-build && yarn move-data && node ./script.js",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
